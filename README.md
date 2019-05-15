@@ -9,4 +9,6 @@ Whenever event trigger the web hook action, event data will be store into the SQ
 
 ![alt text](https://github.com/foongws/jira-ticket-dashboard/blob/master/documentation/Data-Incoming.png)
 
-[![IMAGE ALT TEXT HERE](http://img.youtube.com/vi/xccAwVebWsg/0.jpg)](http://www.youtube.com/watch?v=xccAwVebWsg)
+When user visit ticketingdashboard.php with parameters, the corresponding ticket queue will be show in the dashboard and refresh every 10 secs. At the same time server sent event will be subscribe. The server sent event will be base on the session id to send event.
+
+![alt text](https://github.com/foongws/jira-ticket-dashboard/blob/master/documentation/Ticket%20Dashboard%20and%20alert.png)
