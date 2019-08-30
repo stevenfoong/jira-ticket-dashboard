@@ -15,7 +15,7 @@
       (TICKET_ID        TEXT    NOT NULL,
       TICKET_TITLE      TEXT    NOT NULL,
       REPORTER          TEXT    NOT NULL,
-      ASSIGNEE          TEXT     NOT NULL,
+      ASSIGNEE          TEXT    NOT NULL,
       ORGANIZARION      TEXT    NOT NULL,
       UPDATE_BY         TEXT    NOT NULL,
       COMMENT           CHAR(50),
