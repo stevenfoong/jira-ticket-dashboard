@@ -1,39 +1,11 @@
 <?php
-  session_start();
+session_start();
 
   if(!isset($_SESSION['user_id']) or empty($_SESSION['user_id'])){
     $_SESSION['user_id'] = uniqid();
   }
 
-  if (isset($_GET['queue']) && !empty($_GET['queue'])) {
-    $_SESSION['queue'] = $_GET['queue'];
-  }
-
-  $organizations = array ("org1" , "org2" , "org3" , "org4");
-
-  switch ($_GET['queue']) {
-
-        case "org1":
-                $_SESSION['organization'] = $organizations[0];
-                break;
-
-        case "org2":
-                $_SESSION['organization'] = $organizations[1];
-                break;
-
-        case "org3";
-                $_SESSION['organization'] = $organizations[2];
-                break;
-
-        case "org4";
-                $_SESSION['organization'] = $organizations[3];
-                break;
-
-	case "noc";
-		$_SESSION['organization'] = "noc";
-		break;
-
-  }
+$domain ='';
 
 ?>
 <html>
@@ -78,7 +50,7 @@ if (isset($_GET['debug']) && ($_GET['debug'] == "1")) {
 
   $(document).ready(function(){
     var refreshUsers = setInterval(function() {
-      $("#TicketTable").load("tickets.php?queue=<?php echo $_SESSION['queue'] ?>");
+      $("#TicketTable").load("tickets.php");
     }, 10000); // 5000 ms = 5 sec
   });
 
@@ -120,7 +92,7 @@ if (isset($_GET['debug']) && ($_GET['debug'] == "1")) {
         audio.play();
         notification.onclick = function (event) {
 	  event.preventDefault();
-          window.open("https://jira.sg.orion.co.com/browse/"+jdata['ticket_id'],'_blank');
+          window.open("https://<?php echo $domain;?>/browse/"+jdata['ticket_id'],'_blank');
 	  window.focus();
         };
       }
@@ -136,7 +108,7 @@ if (isset($_GET['debug']) && ($_GET['debug'] == "1")) {
         audio.play();
         notification.onclick = function (event) {
           event.preventDefault();
-          window.open("https://jira.sg.orion.co.com/browse/"+jdata['ticket_id'],'_blank');
+          window.open("https://<?php echo $domain;?>/browse/"+jdata['ticket_id'],'_blank');
           window.focus();
         };
       }
