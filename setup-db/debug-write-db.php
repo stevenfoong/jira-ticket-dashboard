@@ -1,5 +1,7 @@
 <?php
 
+//This file use to debug the DB accessibility. Make sure the entry able to write into the DB.
+
 require_once('db.php');
 
 echo "Opening DB.<br><br>";
