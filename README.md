@@ -1,4 +1,4 @@
-# jira-ticket-dashboard
+# Jira ticket dashboard
 Ticket dashboard Add On for Jira service desk.
 Due to limited time, I will only explain the flow. For the details, you can always read the code.
 If you need to store other data, you can always change the code.
