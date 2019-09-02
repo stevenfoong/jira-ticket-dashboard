@@ -1,0 +1,76 @@
+<html>
+<head>
+   <meta charset="UTF-8">
+   <title>Server-sent events demo</title>
+</head>
+<body>
+  <audio id="audio" src="beep-07.wav" autoplay="false" ></audio>
+  <a onclick="PlaySound()"> Play</a>
+  <button>Close the connection</button>
+
+  <ul>
+  </ul>
+
+<script>
+
+  function PlaySound() {
+    var sound = document.getElementById("audio");
+    sound.play()
+  }
+
+  document.addEventListener('DOMContentLoaded', function () {
+    if (Notification.permission !== "granted")
+      Notification.requestPermission();
+  });
+
+  var button = document.querySelector('button');
+  var evtSource = new EventSource('sse-demo.php');
+  console.log(evtSource.withCredentials);
+  console.log(evtSource.readyState);
+  console.log(evtSource.url);
+  var eventList = document.querySelector('ul');
+  evtSource.onopen = function() {
+    console.log("Connection to server opened.");
+  };
+  evtSource.onmessage = function(e) {
+    var newElement = document.createElement("li");
+    newElement.textContent = "message: " + e.data;
+    eventList.appendChild(newElement);
+
+if (!Notification) {
+    alert('Desktop notifications not available in your browser. Try Chromium.'); 
+    return;
+  }
+
+  if (Notification.permission !== "granted")
+    Notification.requestPermission();
+  else {
+    var notification = new Notification('Notification title', {
+      icon: 'http://cdn.sstatic.net/stackexchange/img/logos/so/so-icon.png',
+      body: e.data + " \n Hey there! You've been notified!",
+    });
+    audio.play();
+    notification.onclick = function () {
+      window.open("https://stackoverflow.com/a/13328397/1269037");      
+    };
+  }
+
+
+  };
+  evtSource.onerror = function() {
+    console.log("EventSource failed.");
+  };
+  button.onclick = function() {
+    console.log('Connection closed');
+    evtSource.close();
+  };
+  evtSource.addEventListener("ping", function(e) {
+    var newElement = document.createElement("li");
+  
+    var obj = JSON.parse(e.data);
+    newElement.innerHTML = "ping at " + obj.time;
+    eventList.appendChild(newElement);
+  }, false);
+</script>
+</body>
+</html>
