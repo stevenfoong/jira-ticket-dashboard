@@ -1,8 +1,11 @@
 <?php
+
 session_start();
 
-header('Content-Type: text/event-stream');
-header('Cache-Control: no-cache');
+header("Content-Type: text/event-stream");
+header("Cache-Control: no-cache");
+header("Connection: keep-alive");
+header("X-Accel-Buffering: no");
 
 date_default_timezone_set("Asia/Singapore");
 $timestamp = date("F d, Y h:i:s A");
@@ -14,7 +17,6 @@ class MyDB extends SQLite3 {
 }
 
 $user_session_id = $_SESSION['user_id'];
-//$user_session_id = "5cac0f7bf0191";
 
 $data = array (
         'event'=>'ping',
@@ -23,14 +25,7 @@ $data = array (
 $str = json_encode($data);
 echo "data: {$str}\n\n";
 
-//echo "id: 200\n";
-//echo "event: ping \n";
-//echo "data: ".$timestamp." \n\n";
-//echo "data: hello ".$_SESSION['user_id']." + ".$_SESSION['debug']."\n\n";
-
 while (1) {
- 
-  //echo "data: testing \n\n";
 
   $db = new MyDB();
 
@@ -54,8 +49,6 @@ while (1) {
 
   }
 
-//  $timestamp = date("F d, Y h:i:s A");
-
 if ($last_msg <> $last_sent) {
   
   $timestamp = date("F d, Y h:i:s A");
@@ -65,7 +58,7 @@ if ($last_msg <> $last_sent) {
     $msg = $db->querySingle("SELECT rowid,* FROM COMMENT WHERE rowid = '$last_sent'",true);
 
     $data = array (
-        'event'=>'update',
+	'event'=>$msg['ORGANIZARION'],
         'message'=>$timestamp,
         'ticket_id'=>$msg['TICKET_ID'],
 	'ticket_title'=>$msg['TICKET_TITLE'],
@@ -74,36 +67,14 @@ if ($last_msg <> $last_sent) {
 	'org'=>$msg['ORGANIZARION'],
 	'ses_org'=>$_SESSION['organization'],
     );
-    $str = json_encode($data);
-    if (($_SESSION['organization'] == "noc") && ($msg['ORGANIZARION'] == "TicketCreate")) {
-      $data['event'] = 'TicketCreate';
-      $data['update_by'] = $msg['REPORTER'];
-      $str = json_encode($data);
-      echo "data: {$str}\n\n";
-    } elseif (($_SESSION['organization'] == "noc") or ($_SESSION['organization'] == $msg['ORGANIZARION'])) {
-      echo "data: {$str}\n\n";
-    } else {
-      $timestamp = date("F d, Y h:i:s A");
-      $data = array (
-        'event'=>'ping',
-        'message'=>$timestamp,
-      );
-      $str = json_encode($data);
-      echo "data: {$str}\n\n";
-    }
-
-    //echo "data: {$str}\n\n";
-
-
-    //echo "id: ".$msg['rowid']."\n";
-    //echo "event: update\n";
-    //echo "data: ".$timestamp." ".$msg['TICKET_ID']." ".$msg['TICKET_TITLE']." ".$msg['COMMENT']."\n\n";
+   
+   $str = json_encode($data);
+   echo "data: {$str}\n\n";
+   
     $db->exec("REPLACE INTO CONTROL (ROW_ID_SENT, LAST_SENT, SESSION_ID) VALUES ('$msg[rowid]', '$timestamp', '$user_session_id')");
-
-    //if ($last_msg == $last_sent)break;
+   
   }
 
-  //while ($last_msg >= $last_sent);
 } else {
   $timestamp = date("F d, Y h:i:s A");
   $data = array (
@@ -113,9 +84,6 @@ if ($last_msg <> $last_sent) {
   $str = json_encode($data);
   echo "data: {$str}\n\n";
  
-//  echo "id: 200\n";
-//  echo "event: ping \n";
-//  echo "data: ".$timestamp." \n\n";
 }
 
   $db->close();
