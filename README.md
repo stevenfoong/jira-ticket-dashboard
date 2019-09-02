@@ -14,3 +14,11 @@ When user visit ticketingdashboard.php with parameters, the corresponding ticket
 ![alt text](https://github.com/foongws/jira-ticket-dashboard/blob/master/documentation/Ticket%20Dashboard%20and%20alert.png)
 
 4 files is all you need. comment.db, ticketingdashboard.php, tickets.php, ticketstream.php put in the same folder, should be start working.
+
+This is how the new ticket notification look like.
+
+![alt text](https://github.com/foongws/jira-ticket-dashboard/blob/master/documentation/NewTicketNotification.png)
+
+This is how the new comment notification look like.
+
+![alt text](https://github.com/foongws/jira-ticket-dashboard/blob/master/documentation/NewCommentNotification.png)
