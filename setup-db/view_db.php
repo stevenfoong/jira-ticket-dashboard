@@ -6,7 +6,7 @@ $db = new MyDB();
 $result = $db->query('SELECT rowid, * FROM COMMENT');
 //var_dump($result->fetchArray());
 
-echo "From COMMENT:<br><br>";
+echo "COMMENT table:<br><br>";
 echo '<table style="width:100%; border: 1px solid black" >';
 
 while ($row = $result->fetchArray()) {
@@ -23,7 +23,7 @@ echo "</table>";
 
 $result2 = $db->query('SELECT rowid, * FROM CONTROL');
 
-echo "<br><br>From CONTROL:<br><br>";
+echo "<br><br>CONTROL table:<br><br>";
 echo '<table style="width:100%; border: 1px solid black" >';
 
 while ($row2 = $result2->fetchArray()) {
