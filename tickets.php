@@ -1,11 +1,6 @@
 <?php
 
-require('config.php');
-
-$username = '';
-$password = '';
-$project = '';
-$domain ='';
+require 'config.php';
 
 $url = 'https://'.$domain.'/rest/api/2/search?jql='.urlencode('project = "'.$project.'" AND status != Closed AND status != Resolved AND status != Completed AND reporter != feedback ORDER BY createdDate DESC ');
 
