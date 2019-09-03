@@ -1,0 +1,37 @@
+* About to connect() to jira.sg.orion.co.com port 443 (#67548)
+*   Trying 52.221.63.157...
+* Connected to jira.sg.orion.co.com (52.221.63.157) port 443 (#67548)
+* skipping SSL peer certificate verification
+* SSL connection using TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+* Server certificate:
+* 	subject: CN=jira.sg.orion.co.com
+* 	start date: Feb 19 01:33:44 2019 GMT
+* 	expire date: May 20 01:33:44 2019 GMT
+* 	common name: jira.sg.orion.co.com
+* 	issuer: CN=Let's Encrypt Authority X3,O=Let's Encrypt,C=US
+* Server auth using Basic with user 'steven.foong'
+> GET /rest/api/2/mypermissions HTTP/1.1
+Authorization: Basic c3RldmVuLmZvb25nOk9yaW9uODg4IQ==
+Host: jira.sg.orion.co.com
+Accept: */*
+
+< HTTP/1.1 200 
+< Server: nginx/1.10.2
+< Date: Wed, 17 Apr 2019 14:57:49 GMT
+< Content-Type: application/json;charset=UTF-8
+< Transfer-Encoding: chunked
+< Connection: keep-alive
+< X-AREQUESTID: 1377x392859x1
+< X-XSS-Protection: 1; mode=block
+< X-Content-Type-Options: nosniff
+< X-Frame-Options: SAMEORIGIN
+< Content-Security-Policy: frame-ancestors 'self'
+< X-ASEN: SEN-13246065
+< Set-Cookie: JSESSIONID=DD8ECCAD9F36A0936BC6F4458630DECD; Path=/; Secure; HttpOnly
+< X-Seraph-LoginReason: OK
+< Set-Cookie: atlassian.xsrf.token=BJYK-4EXX-TPR2-QDTY_0ca304097b7f859c131eb917fd018d972bd36690_lin; Path=/; Secure
+< X-ASESSIONID: thsiro
+< X-AUSERNAME: steven.foong
+< Cache-Control: no-cache, no-store, no-transform
+< 
+* Connection #67548 to host jira.sg.orion.co.com left intact
